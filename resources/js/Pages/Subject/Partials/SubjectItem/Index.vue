@@ -1,24 +1,29 @@
 <script setup>
-import { Head, useForm } from "@inertiajs/vue3";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import DataTable from "./Partials/DataTable.vue";
+import { useForm } from "@inertiajs/vue3";
+import DataTable from "./Components/DataTable.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import ModalForm from "./Partials/ModalForm.vue";
+import ModalForm from "./Components/ModalForm.vue";
 import { ref } from "vue";
 import { useToast } from "primevue/usetoast";
 import DestroyModal from "@/Components/DestroyModal.vue";
 
-defineProps({
-    criteria: Object,
+const props = defineProps({
+    subjectItem: Object,
     subject: Object,
 });
+
+const emits = defineEmits(["update:visible", "onUpdate"]);
+
+const onUpdate = () => {
+    emits("onUpdate");
+};
 
 const form = useForm({
     _method: "POST",
     id: "",
     title: "",
     value: null,
-    subject_id: null,
+    subject_id: props.subject.id,
     description: "",
     errors: {},
 });
@@ -27,13 +32,11 @@ const showModalCreate = ref(false);
 const showModalDestroy = ref(false);
 const toast = useToast();
 const save = () => {
-    let url = route("criteria.store");
-    form.subject_id = form.subject_id.id;
+    let url = route("subject-item.store");
     if (form.id === "") {
         form.post(url, {
             preserveScroll: true,
             onError: (e) => {
-                console.log(e);
                 showModalCreate.value = false;
                 form.reset();
                 toast.add({
@@ -49,13 +52,15 @@ const save = () => {
                 toast.add({
                     severity: "success",
                     summary: "Success",
-                    detail: "Criteria has been added.",
+                    detail: "Subject Item has been added.",
                     life: 3000,
                 });
+                onUpdate();
             },
         });
     } else {
-        url = route("criteria.update", [form.id]);
+        url = route("subject-item.update", [form.id]);
+        form._method = "PUT";
         form.put(url, {
             preserveScroll: true,
             onError: (e) => {
@@ -74,16 +79,17 @@ const save = () => {
                 toast.add({
                     severity: "success",
                     summary: "Success",
-                    detail: "Criteria has been updated",
+                    detail: "Subject Item has been updated",
                     life: 3000,
                 });
+                onUpdate();
             },
         });
     }
 };
 
 const destroy = () => {
-    const url = route("criteria.destroy", [form.id]);
+    const url = route("subject-item.destroy", [form.id]);
     form.delete(url, {
         preserveScroll: true,
         onError: (e) => {
@@ -102,41 +108,34 @@ const destroy = () => {
             toast.add({
                 severity: "success",
                 summary: "Success",
-                detail: "Criteria has been deleted",
+                detail: "Subject Item has been deleted",
                 life: 3000,
             });
+            onUpdate();
         },
     });
 };
 
 const edit = (data) => {
-    form._method = "PUT";
     form.value = data.value;
     form.title = data.title;
     form.id = data.id;
+    form.description = data.description;
+    form.subject_id = props.subject.id;
 
     showModalCreate.value = true;
 };
 
 const destroyConfirm = (id) => {
     form.id = id;
-    form.title = "Delete Criteria";
+    form.title = "Delete Subject Item";
     showModalDestroy.value = true;
 };
 </script>
 
 <template>
-    <Head>
-        <title>Data Criteria</title>
-    </Head>
-
-    <AuthenticatedLayout>
+    <div>
         <Toast />
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Data Criteria
-            </h2>
-        </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -146,9 +145,12 @@ const destroyConfirm = (id) => {
                         >Create</PrimaryButton
                     >
                 </div>
-
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <DataTable :value="criteria.data" @edit="edit" @destroy="destroyConfirm" />
+                    <DataTable
+                        :value="subjectItem"
+                        @edit="edit"
+                        @destroy="destroyConfirm"
+                    />
                 </div>
             </div>
         </div>
@@ -160,8 +162,13 @@ const destroyConfirm = (id) => {
         <ModalForm
             v-model:visible="showModalCreate"
             :value="form"
-            :subjectOptions="subject.data"
+            :subjectOptions="[
+                {
+                    id: props.subject.id,
+                    title: props.subject.title,
+                },
+            ]"
             @save="save"
         />
-    </AuthenticatedLayout>
+    </div>
 </template>

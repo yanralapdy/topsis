@@ -5,17 +5,20 @@ import Column from "primevue/column";
 import Button from "primevue/button";
 import { FilterMatchMode } from "primevue/api";
 import { DateTimeToFormat } from "@/utils";
-import { Link } from "@inertiajs/vue3";
 
 defineProps({
     value: Object,
 });
 
-const emits = defineEmits(["destroy"]);
+const emits = defineEmits(["edit", "destroy"]);
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
+
+const edit = (data) => {
+    emits("edit", data);
+};
 
 const destroy = (id) => {
     emits("destroy", id);
@@ -25,13 +28,13 @@ const destroy = (id) => {
 <template>
     <div>
         <DataTable
-            v-model:filters="filters"
-            :value="value"
-            paginator
-            :rows="10"
-            dataKey="id"
-            :globalFilterFields="['name', 'description']"
-            :rowsPerPageOptions="[5, 10, 20, 50]"
+        v-model:filters="filters"
+        :value="value"
+        paginator
+        :rows="10"
+        dataKey="id"
+        :globalFilterFields="['title', 'description']"
+        :rowsPerPageOptions="[5, 10, 20, 50]"
         >
             <template #header>
                 <div class="flex justify-end">
@@ -49,7 +52,7 @@ const destroy = (id) => {
                     </div>
                 </div>
             </template>
-            <Column header="No.">
+            <Column header="#">
                 <template #body="{ index }">
                     {{ index + 1 }}
                 </template>
@@ -61,6 +64,7 @@ const destroy = (id) => {
                     {{ data.description ? data.description : "-" }}
                 </template>
             </Column>
+            <Column field="value" header="Weight"></Column>
             <Column header="Last Update">
                 <template #body="{ data }">
                     {{ DateTimeToFormat(data.updated_at, "DD MMMM YYYY") }}
@@ -69,13 +73,12 @@ const destroy = (id) => {
             <Column>
                 <template #body="{ data }">
                     <div class="flex justify-end">
-                        <Link :href="route('subject.edit', [data.id])">
-                            <Button
-                                icon="pi pi-file-edit"
-                                severity="secondary"
-                                text
-                            />
-                        </Link>
+                        <Button
+                            icon="pi pi-file-edit"
+                            severity="secondary"
+                            text
+                            @click="edit(data)"
+                        />
                         <Button
                             icon="pi pi-trash"
                             severity="danger"

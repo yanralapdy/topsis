@@ -31,7 +31,7 @@ class CriteriaController extends Controller
     public function store(ApiCriteriaRequest $request)
     {
         Criteria::create($request->all());
-        return redirect()->route('criteria.index');
+        return redirect()->route('subject.edit', $request->subject_id);
     }
 
     /**
@@ -50,7 +50,7 @@ class CriteriaController extends Controller
         $criteria = Criteria::find($id);
         $criteria?->update($request->all());
 
-        return redirect()->route('criteria.index');
+        return redirect()->route('subject.edit', $criteria->subject_id);
     }
 
     /**
@@ -59,8 +59,9 @@ class CriteriaController extends Controller
     public function destroy($id)
     {
         $criteria = Criteria::findOrFail($id);
+        $subject_id = $criteria->subject_id;
         $criteria->delete();
 
-        return redirect()->route('criteria.index');
+        return redirect()->route('subject.edit', $subject_id);
     }
 }

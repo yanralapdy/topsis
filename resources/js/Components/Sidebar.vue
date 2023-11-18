@@ -36,10 +36,6 @@ import SidebarLink from '@/Components/SidebarLink.vue';
                 <span class="pi pi-map-marker"></span>
                 <span>Subject</span>
             </SidebarLink>
-            <SidebarLink :href="route('criteria.index')" :active="route().current('criteria.*')">
-                <span class="pi pi-map-marker"></span>
-                <span>Kriteria</span>
-            </SidebarLink>
 
             <!-- <SidebarLinkCollapse :active="route().current('notification.*')">
                 <Link :href="route('notification.index')" class="hover:text-gray-300 w-full py-2">

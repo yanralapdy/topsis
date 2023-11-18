@@ -28,13 +28,13 @@ const destroy = (id) => {
 <template>
     <div>
         <DataTable
-            v-model:filters="filters"
-            :value="value"
-            paginator
-            :rows="10"
-            dataKey="id"
-            :globalFilterFields="['name', 'description']"
-            :rowsPerPageOptions="[5, 10, 20, 50]"
+        v-model:filters="filters"
+        :value="value"
+        paginator
+        :rows="10"
+        dataKey="id"
+        :globalFilterFields="['title', 'description']"
+        :rowsPerPageOptions="[5, 10, 20, 50]"
         >
             <template #header>
                 <div class="flex justify-end">
@@ -64,12 +64,7 @@ const destroy = (id) => {
                     {{ data.description ? data.description : "-" }}
                 </template>
             </Column>
-            <Column field="value" header="Value"></Column>
-            <Column header="Subject">
-                <template #body="{ data }">
-                    {{ data.subject?.title }}
-                </template>
-            </Column>
+            <Column field="value" header="Weight"></Column>
             <Column header="Last Update">
                 <template #body="{ data }">
                     {{ DateTimeToFormat(data.updated_at, "DD MMMM YYYY") }}

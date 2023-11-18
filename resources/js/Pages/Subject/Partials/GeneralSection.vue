@@ -21,7 +21,7 @@ const props = defineProps({
 const emit = defineEmits(["submit"]);
 
 const submit = () => {
-    emit("submit", props.form);
+    emit("submit");
 };
 
 onMounted(() => {
@@ -39,30 +39,30 @@ onMounted(() => {
         <div class="mt-6 grid sm:grid-cols-1 gap-6">
             <div>
                 <InputLabel for="title" value="Title" />
-                <InputText
-                    v-model="form.title"
+                <input
+                    v-model="props.form.title"
                     id="title"
                     placeholder="Title"
-                    class="w-full"
+                    class="w-full border-gray-300 rounded-md"
                 />
-                <InputError :message="form.errors.title" class="mt-2" />
+                <InputError :message="props.form.errors.title" class="mt-2" />
             </div>
             <div>
                 <InputLabel for="description" value="Description" />
-                <Textarea
-                    v-model="form.description"
+                <textarea
+                    v-model="props.form.description"
                     id="description"
                     placeholder="Description"
-                    class="w-full"
+                    class="w-full border-gray-300 rounded-md min-h-[10rem]"
                 />
-                <InputError :message="form.errors.description" class="mt-2" />
+                <InputError :message="props.form.errors.description" class="mt-2" />
             </div>
         </div>
         <div>
-            <Button
+            <button
                 type="button"
-                class="mt-4"
-                :disabled="form.loading"
+                class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                :disabled="props.form.loading"
                 processing
                 @click="submit"
             >

@@ -6,7 +6,6 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import InputNumber from "primevue/inputnumber";
 import Textarea from "primevue/textarea";
-import Dropdown from "primevue/dropdown";
 
 const props = defineProps({
     visible: Boolean,
@@ -16,7 +15,6 @@ const props = defineProps({
             id: "",
             title: "",
             value: null,
-            subject_id: null,
             description: "",
             errors: {},
         },
@@ -48,7 +46,6 @@ const onModalHide = () => {
     props.value.title = "";
     props.value.value = null;
     props.value.description = "";
-    props.value.subject_id = null;
 };
 
 const save = (e) => {
@@ -59,7 +56,7 @@ const save = (e) => {
 <template>
     <Dialog
         v-model:visible="visible"
-        :header="(props.value.id !== '' ? 'Update' : 'Add') + ' Relawan Type'"
+        :header="(props.value.id !== '' ? 'Update' : 'Add') + ' Criteria'"
         modal
         :draggable="false"
         :style="{ minWidth: '70vw' }"
@@ -67,20 +64,6 @@ const save = (e) => {
         @hide="onModalHide"
     >
         <div class="space-y-4">
-            <div>
-                <InputLabel for="subject_id" value="Subject" />
-                <Dropdown
-                    v-model="props.value.subject_id"
-                    :options="subjectOptions"
-                    optionLabel="title"
-                    placeholder="Select Subject"
-                    class="w-full rounded-md border border-gray-500"
-                />
-                <InputError
-                    :message="props.value.errors.subject_id"
-                    class="mt-2"
-                />
-            </div>
             <div>
                 <InputLabel for="title" value="Title" />
                 <InputText
