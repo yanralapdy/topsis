@@ -5,8 +5,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import GeneralSection from "./Partials/GeneralSection.vue";
 import axios from "axios";
 import { useToast } from "primevue/usetoast";
-import Criteria from "./Partials/Criteria/Index.vue";
-import SubjectItem from "./Partials/SubjectItem/Index.vue";
 
 const toast = useToast();
 const props = defineProps({

@@ -15,7 +15,7 @@ import SidebarLink from '@/Components/SidebarLink.vue';
                         <ApplicationLogo class="block h-9 w-auto fill-current text-gray-300" />
                     </Link>
 
-                    <h2 class="text-gray-300 font-black text-lg">Kelompok ThaAp</h2>
+                    <h2 class="text-gray-300 font-black text-lg">Kelompok 5</h2>
                 </div>
             </div>
 
@@ -32,9 +32,17 @@ import SidebarLink from '@/Components/SidebarLink.vue';
                 <span>Dashboard</span>
             </SidebarLink>
 
-            <SidebarLink :href="route('subject.index')" :active="route().current('subject.*')">
-                <span class="pi pi-map-marker"></span>
-                <span>Subject</span>
+            <SidebarLink :href="route('subject-item.index')" :active="route().current('subject-item.*')">
+                <span class="pi pi-building"></span>
+                <span>Hotel</span>
+            </SidebarLink>
+            <SidebarLink :href="route('criteria.index')" :active="route().current('criteria.*')">
+                <span class="pi pi-book"></span>
+                <span>Kriteria</span>
+            </SidebarLink>
+            <SidebarLink :href="route('result.index')" :active="route().current('result.*')">
+                <span class="pi pi-sort-numeric-down"></span>
+                <span>Result</span>
             </SidebarLink>
 
             <!-- <SidebarLinkCollapse :active="route().current('notification.*')">

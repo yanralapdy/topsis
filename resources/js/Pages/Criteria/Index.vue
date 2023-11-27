@@ -1,15 +1,15 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import DataTable from "./Partials/DataTable.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import ModalForm from "./Partials/ModalForm.vue";
 import { ref } from "vue";
 import { useToast } from "primevue/usetoast";
 import DestroyModal from "@/Components/DestroyModal.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps({
     criteria: Object,
-    subject: Object,
 });
 
 const emits = defineEmits(["update:visible", "onUpdate"]);
@@ -23,7 +23,6 @@ const form = useForm({
     id: "",
     title: "",
     value: null,
-    subject_id: props.subject.id,
     description: "",
     errors: {},
 });
@@ -121,35 +120,31 @@ const edit = (data) => {
     form.title = data.title;
     form.id = data.id;
     form.description = data.description;
-    form.subject_id = props.subject.id;
 
     showModalCreate.value = true;
 };
 
-const destroyConfirm = (id) => {
-    form.id = id;
-    form.title = "Delete Criteria";
-    showModalDestroy.value = true;
-};
 </script>
 
 <template>
-    <div>
+    <Head>
+        <title>Data Criteria</title>
+    </Head>
+
+    <AuthenticatedLayout>
         <Toast />
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Data Criteria
+            </h2>
+        </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <!-- Action Table -->
-                <div class="flex justify-between mb-4">
-                    <PrimaryButton @click="showModalCreate = true"
-                        >Create</PrimaryButton
-                    >
-                </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <DataTable
-                        :value="criteria"
+                        :value="criteria.data"
                         @edit="edit"
-                        @destroy="destroyConfirm"
                     />
                 </div>
             </div>
@@ -162,13 +157,7 @@ const destroyConfirm = (id) => {
         <ModalForm
             v-model:visible="showModalCreate"
             :value="form"
-            :subjectOptions="[
-                {
-                    id: props.subject.id,
-                    title: props.subject.title,
-                },
-            ]"
             @save="save"
         />
-    </div>
+    </AuthenticatedLayout>
 </template>

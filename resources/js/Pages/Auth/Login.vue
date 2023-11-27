@@ -41,8 +41,11 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
-
+                <InputLabel
+                    for="email"
+                    value="Email"
+                    class="text-white !important"
+                />
                 <TextInput
                     id="email"
                     type="email"
@@ -57,7 +60,11 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel
+                    for="password"
+                    value="Password"
+                    class="text-white"
+                />
 
                 <TextInput
                     id="password"
@@ -74,7 +81,7 @@ const submit = () => {
             <div class="block mt-4">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                    <span class="ml-2 text-sm text-white">Remember me</span>
                 </label>
             </div>
 
@@ -82,26 +89,26 @@ const submit = () => {
                 <div class="flex flex-col mr-auto">
                     <Link
                         :href="route('register')"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="underline text-sm text-white hover:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Didn't have an account?
                     </Link>
                     <Link
                         v-if="canResetPassword"
                         :href="route('password.request')"
-                        class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        class="underline text-sm text-white hover:text-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
                         Forgot your password?
                     </Link>
                 </div>
 
-                <PrimaryButton
-                    class="ml-4"
+                <button
+                    class="ml-4 hover:bg-[#cccf49] text-[#1f1f1c] bg-[#f3f702] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm transition duration-150 ease-in-out"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Log in
-                </PrimaryButton>
+                </button>
             </div>
         </form>
     </GuestLayout>

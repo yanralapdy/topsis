@@ -8,24 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Criteria extends Model
+class ResultSubjectItemWeightedNormalizedMatrik extends Model
 {
     use HasFactory;
     use HasBaseTable;
     use HasBaseOwner;
     use SoftDeletes;
 
-    protected $table = 'criterias';
-
-    const SLUG_PRICE = 'price';
-    const SLUG_RATING = 'rating';
-    const SLUG_STAR = 'star';
-    const SLUG_FACILITY = 'facility';
+    protected $table = 'result_subject_item_weighted_normalized_matriks';
 
     protected $fillable = [
         "title",
-        "description",
-        "value",
+        "descriptions",
+        "star",
+        "price",
+        "rating",
+        "facility",
+        "si_plus",
+        "si_min",
+        "pi",
+        "result_id",
     ];
 
     protected $hidden = [

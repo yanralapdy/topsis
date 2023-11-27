@@ -19,11 +19,11 @@ class SubjectItem extends Model
 
     protected $fillable = [
         "title",
-        "description",
+        "descriptions",
         "star",
-        "subject_id",
         "price",
         "rating",
+        "facility"
     ];
 
     protected $hidden = [
@@ -33,9 +33,4 @@ class SubjectItem extends Model
     ];
 
     protected $withoutUUID = true;
-
-    public function subject()
-    {
-        return $this->belongsTo(Subject::class, 'subject_id');
-    }
 }

@@ -28,19 +28,19 @@ const destroy = (id) => {
 <template>
     <div>
         <DataTable
-        v-model:filters="filters"
-        :value="value"
-        paginator
-        :rows="10"
-        dataKey="id"
-        :globalFilterFields="['title', 'description']"
-        :rowsPerPageOptions="[5, 10, 20, 50]"
+            v-model:filters="filters"
+            :value="value"
+            paginator
+            :rows="10"
+            dataKey="id"
+            :globalFilterFields="['title', 'description']"
+            :rowsPerPageOptions="[5, 10, 20, 50]"
         >
             <template #header>
                 <div class="flex justify-end">
                     <div class="relative">
                         <input
-                            class="border border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+                            class="border border-gray-300 bg-[#383833] h-10 px-5 pr-10 rounded-full text-sm focus:outline-none placeholder:text-white"
                             v-model="filters['global'].value"
                             placeholder="Keyword Search"
                         />
@@ -52,19 +52,35 @@ const destroy = (id) => {
                     </div>
                 </div>
             </template>
-            <Column header="#">
+            <Column header="No.">
                 <template #body="{ index }">
                     {{ index + 1 }}
                 </template>
             </Column>
 
-            <Column field="title" header="Title"></Column>
+            <Column field="title" header="Name"></Column>
             <Column header="Description">
                 <template #body="{ data }">
-                    {{ data.description ? data.description : "-" }}
+                    {{ data.descriptions ? data.descriptions : "-" }}
                 </template>
             </Column>
-            <Column field="value" header="Weight"></Column>
+            <Column header="Price">
+                <template #body="{ data }">
+                    <div class="text-[#f3f702]">
+                        {{
+                            data.price
+                                ? "Rp. " +
+                                  data.price
+                                      .toString()
+                                      .replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+                                : "-"
+                        }}
+                    </div>
+                </template>
+            </Column>
+            <Column field="facility" header="Facility Value"></Column>
+            <Column field="rating" header="Rating from App"></Column>
+            <Column field="star" header="Star"></Column>
             <Column header="Last Update">
                 <template #body="{ data }">
                     {{ DateTimeToFormat(data.updated_at, "DD MMMM YYYY") }}

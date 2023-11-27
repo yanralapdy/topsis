@@ -3,24 +3,31 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ApiCriteriaRequest;
 use App\Http\Requests\ApiSubjectItemRequest;
-use App\Http\Resources\CriteriaResource;
-use App\Http\Resources\SubjectResource;
-use App\Models\Criteria;
-use App\Models\Subject;
+use App\Http\Resources\SubjectItemResource;
 use App\Models\SubjectItem;
 use Inertia\Inertia;
 
 class SubjectItemController extends Controller
 {
+     /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $subjectItem = SubjectItem::orderBy('created_at', 'desc')->get();
+        return Inertia::render('SubjectItem/Index', [
+            'subjectItem' => SubjectItemResource::collection($subjectItem),
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(ApiSubjectItemRequest $request)
     {
         SubjectItem::create($request->all());
-        return redirect()->route('subject.edit', $request->subject_id);
+        return redirect()->route('subject-item.index');
     }
 
     /**
@@ -39,7 +46,7 @@ class SubjectItemController extends Controller
         $subjectItem = SubjectItem::find($id);
         $subjectItem?->update($request->all());
 
-        return redirect()->route('subject.edit', $subjectItem->subject_id);
+        return redirect()->route('subject-item.index');
     }
 
     /**
@@ -48,9 +55,8 @@ class SubjectItemController extends Controller
     public function destroy($id)
     {
         $subjectItem = SubjectItem::findOrFail($id);
-        $subject_id = $subjectItem->subject_id;
         $subjectItem->delete();
 
-        return redirect()->route('subject.edit', $subject_id);
+        return redirect()->route('subject-item.index');
     }
 }

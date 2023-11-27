@@ -5,42 +5,33 @@ import Column from "primevue/column";
 import Button from "primevue/button";
 import { FilterMatchMode } from "primevue/api";
 import { DateTimeToFormat } from "@/utils";
+import { Link } from "@inertiajs/vue3";
 
 defineProps({
     value: Object,
 });
 
-const emits = defineEmits(["edit", "destroy"]);
-
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
-
-const edit = (data) => {
-    emits("edit", data);
-};
-
-const destroy = (id) => {
-    emits("destroy", id);
-};
 </script>
 
 <template>
     <div>
         <DataTable
-        v-model:filters="filters"
-        :value="value"
-        paginator
-        :rows="10"
-        dataKey="id"
-        :globalFilterFields="['title', 'description']"
-        :rowsPerPageOptions="[5, 10, 20, 50]"
+            v-model:filters="filters"
+            :value="value"
+            paginator
+            :rows="10"
+            dataKey="id"
+            :globalFilterFields="['title', 'description']"
+            :rowsPerPageOptions="[5, 10, 20, 50]"
         >
             <template #header>
                 <div class="flex justify-end">
                     <div class="relative">
                         <input
-                            class="border border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+                            class="border border-gray-300 bg-[#383833] h-10 px-5 pr-10 rounded-full text-sm focus:outline-none placeholder:text-white"
                             v-model="filters['global'].value"
                             placeholder="Keyword Search"
                         />
@@ -52,19 +43,13 @@ const destroy = (id) => {
                     </div>
                 </div>
             </template>
-            <Column header="#">
+            <Column header="No.">
                 <template #body="{ index }">
                     {{ index + 1 }}
                 </template>
             </Column>
 
-            <Column field="title" header="Title"></Column>
-            <Column header="Description">
-                <template #body="{ data }">
-                    {{ data.description ? data.description : "-" }}
-                </template>
-            </Column>
-            <Column field="value" header="Weight"></Column>
+            <Column field="title" header="Name"></Column>
             <Column header="Last Update">
                 <template #body="{ data }">
                     {{ DateTimeToFormat(data.updated_at, "DD MMMM YYYY") }}
@@ -73,18 +58,13 @@ const destroy = (id) => {
             <Column>
                 <template #body="{ data }">
                     <div class="flex justify-end">
-                        <Button
-                            icon="pi pi-file-edit"
-                            severity="secondary"
-                            text
-                            @click="edit(data)"
-                        />
-                        <Button
-                            icon="pi pi-trash"
-                            severity="danger"
-                            text
-                            @click="destroy(data.id)"
-                        />
+                        <Link :href="route('result.edit', [data.id])">
+                            <Button
+                                icon="pi pi-file-edit"
+                                severity="secondary"
+                                text
+                            />
+                        </Link>
                     </div>
                 </template>
             </Column>

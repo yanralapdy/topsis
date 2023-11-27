@@ -14,14 +14,13 @@ const props = defineProps({
         default: {
             id: "",
             title: "",
-            value: null,
-            description: "",
+            rating: null,
+            star: null,
+            price: null,
+            facility: null,
+            descriptions: "",
             errors: {},
         },
-    },
-    subjectOptions: {
-        type: Array,
-        default: () => [],
     },
 });
 
@@ -44,7 +43,10 @@ const onModalHide = () => {
     // set value to default
     props.value.id = "";
     props.value.title = "";
-    props.value.value = null;
+    props.value.rating = null;
+    props.value.star = null;
+    props.value.price = null;
+    props.value.facility = null;
     props.value.description = "";
 };
 
@@ -60,46 +62,95 @@ const save = (e) => {
         modal
         :draggable="false"
         :style="{ minWidth: '70vw' }"
+        overlayStyle="background-color: #383833"
         :breakpoints="{ '960px': '75vw', '641px': '100vw' }"
         @hide="onModalHide"
     >
         <div class="space-y-4">
             <div>
-                <InputLabel for="title" value="Title" />
+                <InputLabel for="title" value="Name" />
                 <InputText
                     v-model="props.value.title"
                     id="title"
-                    placeholder="Title"
+                    placeholder="Name"
                     class="w-full rounded-md"
                 />
                 <InputError :message="props.value.errors.title" class="mt-2" />
             </div>
             <div>
-                <InputLabel for="description" value="Description" />
+                <InputLabel for="descriptions" value="Descriptions" />
                 <Textarea
-                    v-model="props.value.description"
-                    id="description"
-                    placeholder="Description"
+                    v-model="props.value.descriptions"
+                    id="descriptions"
+                    placeholder="Descriptions"
                     class="w-full rounded-md"
                 />
                 <InputError
-                    :message="props.value.errors.description"
+                    :message="props.value.errors.descriptions"
                     class="mt-2"
                 />
             </div>
             <div>
-                <InputLabel for="value" value="Bobot" />
+                <InputLabel
+                    for="facility"
+                    value="Facility Value of The Hotel"
+                />
                 <InputNumber
-                    v-model="props.value.value"
-                    id="value"
-                    placeholder="Bobot"
+                    v-model="props.value.facility"
+                    id="facility"
+                    placeholder="Facility Value of The Hotel"
                     class="w-full"
                     inputClass="!rounded-md"
                     inputId="minmaxfraction"
                     :minFractionDigits="0"
-                    :maxFractionDigits="3"
+                    :maxFractionDigits="10"
                 />
-                <InputError :message="props.value.errors.value" class="mt-2" />
+                <InputError
+                    :message="props.value.errors.facility"
+                    class="mt-2"
+                />
+            </div>
+            <div>
+                <InputLabel for="rating" value="Rating From App" />
+                <InputNumber
+                    v-model="props.value.rating"
+                    id="rating"
+                    placeholder="Rating From App"
+                    class="w-full"
+                    inputClass="!rounded-md"
+                    inputId="minmaxfraction"
+                    :minFractionDigits="0"
+                    :maxFractionDigits="10"
+                />
+                <InputError :message="props.value.errors.rating" class="mt-2" />
+            </div>
+            <div>
+                <InputLabel for="star" value="Hotel Star" />
+                <InputNumber
+                    v-model="props.value.star"
+                    id="star"
+                    placeholder="Hotel Star"
+                    class="w-full"
+                    inputClass="!rounded-md"
+                    inputId="minmaxfraction"
+                    :minFractionDigits="0"
+                    :maxFractionDigits="10"
+                />
+                <InputError :message="props.value.errors.rating" class="mt-2" />
+            </div>
+            <div>
+                <InputLabel for="price" value="Hotel Price" />
+                <InputNumber
+                    v-model="props.value.price"
+                    id="price"
+                    placeholder="Hotel Price"
+                    class="w-full"
+                    inputClass="!rounded-md"
+                    inputId="minmaxfraction"
+                    :minFractionDigits="0"
+                    :maxFractionDigits="10"
+                />
+                <InputError :message="props.value.errors.rating" class="mt-2" />
             </div>
         </div>
 

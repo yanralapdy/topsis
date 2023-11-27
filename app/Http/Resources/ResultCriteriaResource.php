@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SubjectItemResource extends JsonResource
+class ResultCriteriaResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
@@ -18,11 +18,10 @@ class SubjectItemResource extends JsonResource
             "deleted_at" => $this->deleted_at,
 
             "title" => $this->title,
-            "descriptions" => $this->descriptions,
-            "facility" => $this->facility,
-            "star" => $this->star,
-            "price" => $this->price,
-            "rating" => $this->rating,
+            "description" => $this->description,
+            "value" => $this->value,
+            "ideal_best_value" => $this->ideal_best_value,
+            "ideal_worst_value" => $this->ideal_worst_value,
 
             "created_by" => new UserResource($this->whenLoaded('createdBy')),
             "updated_by" => new UserResource($this->whenLoaded('updatedBy')),

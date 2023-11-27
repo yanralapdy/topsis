@@ -18,11 +18,7 @@ const props = defineProps({
             description: "",
             errors: {},
         },
-    },
-    subjectOptions: {
-        type: Array,
-        default: () => [],
-    },
+    }
 });
 
 const emits = defineEmits(["update:visible", "save"]);
@@ -97,7 +93,7 @@ const save = (e) => {
                     inputClass="!rounded-md"
                     inputId="minmaxfraction"
                     :minFractionDigits="0"
-                    :maxFractionDigits="3"
+                    :maxFractionDigits="10"
                 />
                 <InputError :message="props.value.errors.value" class="mt-2" />
             </div>

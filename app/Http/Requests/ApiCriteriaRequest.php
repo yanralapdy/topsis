@@ -12,7 +12,6 @@ class ApiCriteriaRequest extends FormRequest
             "title" => "required|string",
             "description" => "nullable|string",
             "value" => "required|numeric",
-            "subject_id" => "nullable|integer",
          ];
     }
 }

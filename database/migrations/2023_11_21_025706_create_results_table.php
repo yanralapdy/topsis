@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subject_items', function (Blueprint $table) {
+        Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            $table->string('title');
-            $table->text('descriptions')->nullable();
-            $table->integer('facility')->default(0);
-            $table->integer('star')->default(0);
-            $table->double('price')->nullable();
-            $table->integer('rating')->default(0);
+
+            $table->string("title")->nullable();
 
             $table->bigInteger("created_by")->nullable()->unsigned()->index();
             $table->bigInteger("updated_by")->nullable()->unsigned()->index();
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subject_items');
+        Schema::dropIfExists('results');
     }
 };

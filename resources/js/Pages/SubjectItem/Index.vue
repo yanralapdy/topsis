@@ -1,18 +1,17 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import DataTable from "./Components/DataTable.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 import ModalForm from "./Components/ModalForm.vue";
 import { ref } from "vue";
 import { useToast } from "primevue/usetoast";
 import DestroyModal from "@/Components/DestroyModal.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps({
     subjectItem: Object,
-    subject: Object,
 });
 
-const emits = defineEmits(["update:visible", "onUpdate"]);
+const emits = defineEmits(["update:visible", "onUpdate", "destroyConfirm"]);
 
 const onUpdate = () => {
     emits("onUpdate");
@@ -22,9 +21,11 @@ const form = useForm({
     _method: "POST",
     id: "",
     title: "",
-    value: null,
-    subject_id: props.subject.id,
-    description: "",
+    rating: null,
+    star: null,
+    price: null,
+    facility: null,
+    descriptions: "",
     errors: {},
 });
 
@@ -117,11 +118,13 @@ const destroy = () => {
 };
 
 const edit = (data) => {
-    form.value = data.value;
+    form.price = data.price;
     form.title = data.title;
     form.id = data.id;
-    form.description = data.description;
-    form.subject_id = props.subject.id;
+    form.descriptions = data.descriptions;
+    form.rating = data.rating;
+    form.star = data.star;
+    form.facility = data.facility;
 
     showModalCreate.value = true;
 };
@@ -134,20 +137,34 @@ const destroyConfirm = (id) => {
 </script>
 
 <template>
-    <div>
+    <Head>
+        <title>Data Subject Item</title>
+    </Head>
+
+    <AuthenticatedLayout>
         <Toast />
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Data Subject Item
+            </h2>
+        </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <!-- Action Table -->
                 <div class="flex justify-between mb-4">
-                    <PrimaryButton @click="showModalCreate = true"
-                        >Create</PrimaryButton
+                    <button
+                        @click="showModalCreate = true"
+                        class="bg-[#f3f702] hover:bg-[#cccf49] text-black font-bold py-2 px-4 rounded"
                     >
+                        Create
+                    </button>
                 </div>
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div
+                    class="bg-[#383833] overflow-hidden shadow-sm sm:rounded-lg"
+                >
                     <DataTable
-                        :value="subjectItem"
+                        :value="subjectItem.data"
                         @edit="edit"
                         @destroy="destroyConfirm"
                     />
@@ -162,13 +179,7 @@ const destroyConfirm = (id) => {
         <ModalForm
             v-model:visible="showModalCreate"
             :value="form"
-            :subjectOptions="[
-                {
-                    id: props.subject.id,
-                    title: props.subject.title,
-                },
-            ]"
             @save="save"
         />
-    </div>
+    </AuthenticatedLayout>
 </template>
