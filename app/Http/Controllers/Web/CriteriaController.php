@@ -18,10 +18,8 @@ class CriteriaController extends Controller
     public function index()
     {
         $criteria = Criteria::orderBy('created_at', 'desc')->get();
-        $criteria->load('subject');
         return Inertia::render('Criteria/Index', [
             'criteria' => CriteriaResource::collection($criteria),
-            'subject' => SubjectResource::collection(Subject::orderBy('created_at', 'desc')->get())
         ]);
     }
 

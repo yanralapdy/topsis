@@ -17,11 +17,15 @@ class Criteria extends Model
 
     protected $table = 'criterias';
 
+    const SLUG_PRICE = 'price';
+    const SLUG_RATING = 'rating';
+    const SLUG_STAR = 'star';
+    const SLUG_FACILITY = 'facility';
+
     protected $fillable = [
         "title",
         "description",
         "value",
-        "subject_id"
     ];
 
     protected $hidden = [
@@ -31,9 +35,4 @@ class Criteria extends Model
     ];
 
     protected $withoutUUID = true;
-
-    public function subject()
-    {
-        return $this->belongsTo(Subject::class, 'subject_id');
-    }
 }

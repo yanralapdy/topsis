@@ -47,12 +47,12 @@ const destroy = (status) => {
     >
         <template #footer>
             <Button
-                class="!bg-green-500 !hover:bg-green-700 !border-green-500 !hover:border-green-700"
+                class="!bg-blue-500 !hover:bg-blue-700 !border-green-500 !hover:border-green-700 mr-2 w-20 h-10 text-white"
                 label="Cancel"
-                @click="props.visible = false"
+                @click="visible = false"
             />
             <Button
-                class="!bg-red-500 !hover:bg-red-700 !border-red-500 !hover:border-red-700"
+                class="!bg-red-500 !hover:bg-red-700 !border-red-500 !hover:border-red-700 w-20 h-10 text-white"
                 label="Delete"
                 @click="destroy"
             />

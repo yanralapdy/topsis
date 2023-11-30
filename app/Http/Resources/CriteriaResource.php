@@ -20,9 +20,6 @@ class CriteriaResource extends JsonResource
             "title" => $this->title,
             "description" => $this->description,
             "value" => $this->value,
-            "subject_id" => $this->subject_id,
-
-            "subject" => new SubjectResource($this->whenLoaded('subject')),
 
             "created_by" => new UserResource($this->whenLoaded('createdBy')),
             "updated_by" => new UserResource($this->whenLoaded('updatedBy')),

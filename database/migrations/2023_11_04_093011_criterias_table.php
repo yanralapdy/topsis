@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->double('value');
+            $table->string('slug')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->bigInteger('subject_id')->unsigned()->nullable()->index();
 
             $table->bigInteger("created_by")->nullable()->unsigned()->index();
             $table->bigInteger("updated_by")->nullable()->unsigned()->index();

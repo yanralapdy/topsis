@@ -46,9 +46,11 @@ class SubjectController extends Controller
     {
         $subject = Subject::findOrFail($id);
 
-        return Inertia::render('Content/Subject/Detail', [
-            'value' => new SubjectResource($subject),
-        ]);
+        $data = [
+            'subject' => new SubjectResource($subject),
+        ];
+
+        return Inertia::render('Subject/Detail', $data);
     }
 
     /**
@@ -59,7 +61,7 @@ class SubjectController extends Controller
         $subject = Subject::find($id);
         $subject?->update($request->all());
 
-        return redirect()->route('subject.index');
+        return redirect()->route('subject.edit', $id);
     }
 
     /**

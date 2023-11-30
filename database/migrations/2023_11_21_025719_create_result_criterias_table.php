@@ -11,12 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('result_criterias', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
+            $table->double('value');
+            $table->string('slug')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->bigInteger('result_id')->unsigned()->index();
+            $table->double('ideal_best_value')->nullable();
+            $table->double('ideal_worst_value')->nullable();
 
             $table->bigInteger("created_by")->nullable()->unsigned()->index();
             $table->bigInteger("updated_by")->nullable()->unsigned()->index();
@@ -29,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('result_criterias');
     }
 };

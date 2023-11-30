@@ -12,8 +12,8 @@ const showingNavigationDropdown = ref(false);
     <div class="flex">
         <Sidebar />
 
-        <div class="flex-1 min-h-screen bg-slate-100">
-            <nav class="bg-white border-b border-gray-100">
+        <div class="flex-1 min-h-screen bg-[#1f1f1c]">
+            <nav class="bg-[#f3f702]">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -26,7 +26,7 @@ const showingNavigationDropdown = ref(false);
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-[#383833] hover:text-gray-100 hover:bg-gray-600 focus:outline-none transition ease-in-out duration-150">
                                                 {{ $page.props.auth.user.name }}
 
                                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header class="bg-[#f3f702] shadow" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>

@@ -1,3 +1,97 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.p-datatable-header {
+    background-color: #383833;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-paginator-bottom {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-paginator {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-paginator .p-component {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-inputtext {
+    background-color: #383833;
+    color: #fff !important;
+}
+
+.p-dialog .p-dialog-header {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-footer {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-footer .p-button {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-footer .p-button.p-button-danger {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-content {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-content .p-dialog-content-text {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-content .p-dialog-content-text .p-dialog-content-text-detail {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-content .p-dialog-content-text .p-dialog-content-text-detail .p-dialog-content-text-detail {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-content .p-dialog-content-text .p-dialog-content-text-detail .p-dialog-content-text-detail .p-dialog-content-text-detail {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-content .p-dialog-content-text .p-dialog-content-text-detail .p-dialog-content-text-detail .p-dialog-content-text-detail .p-dialog-content-text-detail {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-content .p-dialog-content-text .p-dialog-content-text-detail .p-dialog-content-text-detail .p-dialog-content-text-detail .p-dialog-content-text-detail .p-dialog-content-text-detail {
+    background-color: #383833;
+    color: #fff;
+}
+
+.p-dialog .p-dialog-content label {
+    background-color: #383833;
+    color: #fff;
+}

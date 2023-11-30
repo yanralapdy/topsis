@@ -11,15 +11,11 @@ defineProps({
     value: Object,
 });
 
-const emits = defineEmits(["edit", "destroy"]);
+const emits = defineEmits(["destroy"]);
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
-
-const edit = (data) => {
-    emits("edit", data);
-};
 
 const destroy = (id) => {
     emits("destroy", id);
@@ -53,7 +49,7 @@ const destroy = (id) => {
                     </div>
                 </div>
             </template>
-            <Column header="#">
+            <Column header="No.">
                 <template #body="{ index }">
                     {{ index + 1 }}
                 </template>

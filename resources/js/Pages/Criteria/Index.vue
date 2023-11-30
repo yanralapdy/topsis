@@ -1,24 +1,28 @@
 <script setup>
 import { Head, useForm } from "@inertiajs/vue3";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DataTable from "./Partials/DataTable.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import ModalForm from "./Partials/ModalForm.vue";
 import { ref } from "vue";
 import { useToast } from "primevue/usetoast";
 import DestroyModal from "@/Components/DestroyModal.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
-defineProps({
+const props = defineProps({
     criteria: Object,
-    subject: Object,
 });
+
+const emits = defineEmits(["update:visible", "onUpdate"]);
+
+const onUpdate = () => {
+    emits("onUpdate");
+};
 
 const form = useForm({
     _method: "POST",
     id: "",
     title: "",
     value: null,
-    subject_id: null,
     description: "",
     errors: {},
 });
@@ -28,12 +32,10 @@ const showModalDestroy = ref(false);
 const toast = useToast();
 const save = () => {
     let url = route("criteria.store");
-    form.subject_id = form.subject_id.id;
     if (form.id === "") {
         form.post(url, {
             preserveScroll: true,
             onError: (e) => {
-                console.log(e);
                 showModalCreate.value = false;
                 form.reset();
                 toast.add({
@@ -52,10 +54,12 @@ const save = () => {
                     detail: "Criteria has been added.",
                     life: 3000,
                 });
+                onUpdate();
             },
         });
     } else {
         url = route("criteria.update", [form.id]);
+        form._method = "PUT";
         form.put(url, {
             preserveScroll: true,
             onError: (e) => {
@@ -77,6 +81,7 @@ const save = () => {
                     detail: "Criteria has been updated",
                     life: 3000,
                 });
+                onUpdate();
             },
         });
     }
@@ -105,24 +110,20 @@ const destroy = () => {
                 detail: "Criteria has been deleted",
                 life: 3000,
             });
+            onUpdate();
         },
     });
 };
 
 const edit = (data) => {
-    form._method = "PUT";
     form.value = data.value;
     form.title = data.title;
     form.id = data.id;
+    form.description = data.description;
 
     showModalCreate.value = true;
 };
 
-const destroyConfirm = (id) => {
-    form.id = id;
-    form.title = "Delete Criteria";
-    showModalDestroy.value = true;
-};
 </script>
 
 <template>
@@ -140,15 +141,11 @@ const destroyConfirm = (id) => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <!-- Action Table -->
-                <div class="flex justify-between mb-4">
-                    <PrimaryButton @click="showModalCreate = true"
-                        >Create</PrimaryButton
-                    >
-                </div>
-
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <DataTable :value="criteria.data" @edit="edit" @destroy="destroyConfirm" />
+                    <DataTable
+                        :value="criteria.data"
+                        @edit="edit"
+                    />
                 </div>
             </div>
         </div>
@@ -160,7 +157,6 @@ const destroyConfirm = (id) => {
         <ModalForm
             v-model:visible="showModalCreate"
             :value="form"
-            :subjectOptions="subject.data"
             @save="save"
         />
     </AuthenticatedLayout>

@@ -10,7 +10,7 @@ defineProps({
     value: Object,
 });
 
-const emits = defineEmits(["edit", "destroy"]);
+const emits = defineEmits(["edit"]);
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -18,10 +18,6 @@ const filters = ref({
 
 const edit = (data) => {
     emits("edit", data);
-};
-
-const destroy = (id) => {
-    emits("destroy", id);
 };
 </script>
 
@@ -33,14 +29,14 @@ const destroy = (id) => {
             paginator
             :rows="10"
             dataKey="id"
-            :globalFilterFields="['name', 'description']"
+            :globalFilterFields="['title', 'description']"
             :rowsPerPageOptions="[5, 10, 20, 50]"
         >
             <template #header>
                 <div class="flex justify-end">
                     <div class="relative">
                         <input
-                            class="border border-gray-300 bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
+                            class="border border-gray-300 bg-[#383833] h-10 px-5 pr-10 rounded-full text-sm focus:outline-none placeholder:text-white"
                             v-model="filters['global'].value"
                             placeholder="Keyword Search"
                         />
@@ -64,12 +60,7 @@ const destroy = (id) => {
                     {{ data.description ? data.description : "-" }}
                 </template>
             </Column>
-            <Column field="value" header="Value"></Column>
-            <Column header="Subject">
-                <template #body="{ data }">
-                    {{ data.subject?.title }}
-                </template>
-            </Column>
+            <Column field="value" header="Weight"></Column>
             <Column header="Last Update">
                 <template #body="{ data }">
                     {{ DateTimeToFormat(data.updated_at, "DD MMMM YYYY") }}
@@ -83,12 +74,6 @@ const destroy = (id) => {
                             severity="secondary"
                             text
                             @click="edit(data)"
-                        />
-                        <Button
-                            icon="pi pi-trash"
-                            severity="danger"
-                            text
-                            @click="destroy(data.id)"
                         />
                     </div>
                 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { Head, router, useForm } from "@inertiajs/vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import DataTable from "./Partials/DataTable.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -136,7 +136,7 @@ const destroyConfirm = (id) => {
                 </div>
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <DataTable :value="subject.data" @edit="edit" @destroy="destroyConfirm" />
+                    <DataTable :value="subject.data" @destroy="destroyConfirm" />
                 </div>
             </div>
         </div>
