@@ -83,7 +83,7 @@ const save = () => {
                         @click="showModalCreate = true"
                         class="bg-[#f3f702] hover:bg-[#cccf49] text-black font-bold py-2 px-4 rounded"
                     >
-                        Create
+                        Generate
                     </button>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
